@@ -121,8 +121,12 @@ export const QuillToolbar = (props) => {
                     </select>
                 </span>
                 <span className="ql-formats">
-                    <button className="ql-list" value="ordered" />
+                    {/* <button className="ql-list" value="ordered" /> */}
                     <button className="ql-list" value="bullet" />
+                </span>
+                <span className="ql-formats">
+                    <button className="ql-list" value="ordered" />
+                    {/* <button className="ql-list" value="bullet" /> */}
                 </span>
                 {/* <span className="ql-formats">
                     <button className="ql-script" value="super" />
@@ -130,11 +134,11 @@ export const QuillToolbar = (props) => {
                     <button className="ql-blockquote" />
                     <button className="ql-direction" />
                 </span> */}
-                {/* <span className="ql-formats">
-                    <select className="ql-align" />
+                <span className="ql-formats">
+                    {/* <select className="ql-align" /> */}
                     <select className="ql-color" />
-                    <select className="ql-background" />
-                </span> */}
+                    {/* <select className="ql-background" /> */}
+                </span>
                 <span className="ql-formats">
                     <button className="ql-link" />
                     <button className="ql-image" />
