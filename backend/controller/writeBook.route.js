@@ -1,5 +1,5 @@
 const Router=require('express').Router()
-const writeBook=require('../repository/writebook.repository')
+const writeBook=require('../repository/book/writebook.repository')
 const router = require('./book.route')
 const doesBookExist = require("../middleware/doesBookExist.js")
 
