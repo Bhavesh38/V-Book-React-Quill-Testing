@@ -26,21 +26,21 @@ const bodySchema = mongoose.Schema({
 const headingSchema = mongoose.Schema({
   topic_title: {
     type: String,
-    required: true,
+    //required: true,
   },
   body: [bodySchema],
 });
 const pageSchema = mongoose.Schema({
   page_number: {
     type: Number,
-    required: true,
+    //required: true,
   },
   lecture_hrs: {
     type: Number,
   },
   next_page:{
     type: Boolean,
-    required: true
+    //required: true
   },
   headings: [headingSchema],
 });
@@ -49,23 +49,23 @@ const bookSchema = mongoose.Schema(
     tags: [],
     author: {
       type: String,
-      required: true,
+      //required: true,
     },
     book_title: {
       type: String,
-      required: true,
+      //required: true,
     },
     cover_page: {
       type: String,
-      required: true,
+      //required: true,
     },
     rating: {
       type: Number,
-      required: true,
+      //required: true,
     },
     price:{
       type : Number,
-      required: true,
+      //required: true,
     },
     pages: [pageSchema],
   },

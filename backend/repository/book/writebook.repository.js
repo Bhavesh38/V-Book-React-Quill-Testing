@@ -1,7 +1,7 @@
 const books = require("../../models/Book.model")
 const writeBook = async (book)=>{
     await books.findByIdAndUpdate(
-        {title:book.title},
+        {book_title:book.title},
         {$push:{pages: book.page}}
     )
     newbook = await books.findOne({title:book.title})
