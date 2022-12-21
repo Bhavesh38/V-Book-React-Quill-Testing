@@ -4,6 +4,7 @@ const courseRouter = require("./course.route");
 const orderRoute = require("./order.route");
 const bookRoutes = require("./book.route");
 const categoryRoutes = require("./categories.route");
+const writebookRouter = require("./writeBook.route")
 const router = require("express").Router();
 //Routes
 router.use("/user", userRoutes);
@@ -12,6 +13,7 @@ router.use("/api/book", bookRoutes);
 router.use("/courses", courseRouter);
 router.use("/orders", orderRoute);
 router.use("/categories", categoryRoutes);
+router.use("/writebook", writebookRouter);
 // router.get("/api/config/paypal", (req, res) =>
 //   res.send(process.env.PAYPAL_CLIENT_ID)
 // );

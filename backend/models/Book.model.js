@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
-const subTopicSchema = mongoose.Schema({
-  sub_title: {
-    type: String,
-    required: true,
-  },
+const bodySchema = mongoose.Schema({
   diagram: {
     type: String,
   },
@@ -27,30 +23,26 @@ const subTopicSchema = mongoose.Schema({
     default: "unordered",
   },
 });
-const topicSchema = mongoose.Schema({
+const headingSchema = mongoose.Schema({
   topic_title: {
     type: String,
     required: true,
   },
-  objective: {
-    type: String,
-    required: true,
-  },
-  sub_topic: [subTopicSchema],
+  body: [bodySchema],
 });
-const chapterSchema = mongoose.Schema({
-  chapter_title: {
-    type: String,
+const pageSchema = mongoose.Schema({
+  page_number: {
+    type: Number,
     required: true,
   },
   lecture_hrs: {
     type: Number,
   },
-  index: {
-    type: Number,
-    required: true,
+  next_page:{
+    type: Boolean,
+    required: true
   },
-  topics: [topicSchema],
+  headings: [headingSchema],
 });
 const bookSchema = mongoose.Schema(
   {
@@ -75,7 +67,7 @@ const bookSchema = mongoose.Schema(
       type : Number,
       required: true,
     },
-    chapters: [chapterSchema],
+    pages: [pageSchema],
   },
   { timestamps: true }
 );
