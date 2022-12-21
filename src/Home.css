@@ -1,5 +1,6 @@
 .home {
   background-color: rgba(0, 0, 0, 0.4);
+  height: 800px;
   width: fit-content;
   text-align: center;
   margin: auto;

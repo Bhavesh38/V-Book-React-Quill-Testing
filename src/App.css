@@ -5,10 +5,10 @@
 .row {
   width: 35%;
   margin: auto;
-  color: white;
+  /* color: white; */
 }
 .font-weight-bold {
-  color: black;
+  /* color: black; */
 }
 .edditorToolbar {
   display: flex;
