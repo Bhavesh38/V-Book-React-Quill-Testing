@@ -1,10 +1,10 @@
 const books = require("../../models/Book.model")
 const writeBook = async (book)=>{
-    await books.findByIdAndUpdate(
+    console.log("adding page")
+    const response = await books.updateOne(
         {book_title:book.title},
-        {$push:{pages: book.page}}
+        {$push:{pages: book.bookpage}}
     )
-    newbook = await books.findOne({title:book.title})
-    return newbook
+    return await books.findOne({book_title:book.title})
 }
 module.exports = writeBook
