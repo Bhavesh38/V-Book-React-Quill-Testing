@@ -9,8 +9,7 @@ function App() {
 
   const [height, setHeight] = useState({});
   const [intialVal, setInitVal] = useState({});
-
-
+  const [images, setImages] = useState([]);
 
 
   const [userInfo, setuserInfo] = useState({
@@ -19,20 +18,30 @@ function App() {
     description: '',
     information: '',
   });
+
+  const sendData = () => {
+    console.log(userInfo.description);
+
+  }
+
   const onChangeValue = (e) => {
+    if (e.target.value[1] === 'i') {
+      console.log(e.target.value);
+    }
     setuserInfo({
       ...userInfo,
       [e.target.name]: e.target.value
     });
   }
   const ondescription = (value) => {
-    console.log(value);
-    let totalHeight = (document.getElementsByClassName("quill")[0].clientHeight);
+    // console.log(value);
+    let totalHeight = document.getElementsByClassName("quill")[0].clientHeight;
     if (height > 800) {
       window.alert("You have reached the max word-limit");
     }
-    console.log(totalHeight);
     setHeight(totalHeight);
+    // console.log(height);
+
     // console.log(height)
 
     if (totalHeight)
@@ -54,7 +63,6 @@ function App() {
   const addDetails = async (event) => {
     try {
       event.preventDefault();
-      // console.log(this.refs.inner.clientHeight);
       event.persist();
       if (userInfo.description.length < 50) {
         setError('Required, Add description minimum length 50 characters');
@@ -72,17 +80,7 @@ function App() {
           <div className="row">
             <form onSubmit={addDetails} className="update__forms">
               <div className="form-row">
-                {/* <div className="chapter_name form-group col-md-12 ">
-                  <label className="font-weight-bold"><strong> Chapter Name</strong> <span className="required"> * </span> </label>
-                  <input type="text" name="title" value={userInfo.title} onChange={onChangeValue} className="form-control" placeholder="Title" required />
-                </div>
-                <div className="form-group col-md-12">
-                  <label className="font-weight-bold"><strong>Author</strong>  <span className="required"> * </span> </label>
-                  <input type="text" name="author" value={userInfo.author} onChange={onChangeValue} className="form-control" placeholder="author" required />
-                </div>
-                <div className="clearfix"></div> */}
 
-                {/* Controlling its height */}
                 <div className="editor form-group col-md-12 ">
                   <label className="font-weight-bold"><strong>Page Content </strong> <span className="required"> * </span> </label>
                   <EditorToolbar toolbarId={'t1'} />
@@ -93,13 +91,13 @@ function App() {
                     placeholder={"Write something awesome..."}
                     modules={modules('t1')}
                     formats={formats}
-                    style={{height:400,width:450,textAlign:"center",justifyContent:30,}}
+                    style={{ width: 390, textAlign: "center", justifyContent: 30, }}
                   />
                 </div>
                 <br />
                 {isError !== null && <div className="errors"> {isError} </div>}
                 <div className="form-group col-sm-12 text-right">
-                  <button type="submit" className="btn btn__theme"> Save  </button>
+                  <button type="submit" className="btn btn__theme" onClick={sendData}> Save  </button>
                   <button type="submit" className="btn btn__theme"> Save next  </button>
                   <button type="submit" className="btn btn__theme"> Submit  </button>
                 </div>

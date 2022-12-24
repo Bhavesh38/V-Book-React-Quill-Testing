@@ -51,9 +51,10 @@
 }
 
 .editor {
-  height: 140vh;
+  height: 100vh;
   border: 1px dotted rgba(0, 0, 0, 0.4);
   background-color: rgba(0, 0, 0, 0.4);
+  overflow-y: scroll;
 }
 /* .ql-blank {
   border-bottom: none;

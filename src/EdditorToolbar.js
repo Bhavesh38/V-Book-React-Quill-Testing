@@ -96,7 +96,6 @@ export const QuillToolbar = (props) => {
     return (<>
         {props.toolbarId !== undefined &&
             <div id={props.toolbarId} className="edditorToolbar">
-
                 <span className="ql-formats">
                     <button className="ql-bold" />
                 </span>
