@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
-const subTopicSchema = mongoose.Schema({
-  sub_title: {
-    type: String,
-    required: true,
-  },
+const bodySchema = mongoose.Schema({
   diagram: {
     type: String,
   },
@@ -27,55 +23,51 @@ const subTopicSchema = mongoose.Schema({
     default: "unordered",
   },
 });
-const topicSchema = mongoose.Schema({
+const headingSchema = mongoose.Schema({
   topic_title: {
     type: String,
-    required: true,
+    //required: true,
   },
-  objective: {
-    type: String,
-    required: true,
-  },
-  sub_topic: [subTopicSchema],
+  body: [bodySchema],
 });
-const chapterSchema = mongoose.Schema({
-  chapter_title: {
-    type: String,
-    required: true,
+const pageSchema = mongoose.Schema({
+  page_number: {
+    type: Number,
+    //required: true,
   },
   lecture_hrs: {
     type: Number,
   },
-  index: {
-    type: Number,
-    required: true,
+  next_page:{
+    type: Boolean,
+    //required: true
   },
-  topics: [topicSchema],
+  headings: [headingSchema],
 });
 const bookSchema = mongoose.Schema(
   {
     tags: [],
     author: {
       type: String,
-      required: true,
+      //required: true,
     },
     book_title: {
       type: String,
-      required: true,
+      //required: true,
     },
     cover_page: {
       type: String,
-      required: true,
+      //required: true,
     },
     rating: {
       type: Number,
-      required: true,
+      //required: true,
     },
     price:{
       type : Number,
-      required: true,
+      //required: true,
     },
-    chapters: [chapterSchema],
+    pages: [pageSchema],
   },
   { timestamps: true }
 );
