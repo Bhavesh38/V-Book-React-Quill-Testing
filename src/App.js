@@ -1,40 +1,56 @@
 import React, { useState, useLayoutEffect, useRef, useEffect } from "react";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import EditorToolbar, { modules, formats } from "./EdditorToolbar";
-import "./App.css"
+import "./App.css";
 import Home from "./Home";
+import cheerio from "cheerio";
 
 function App() {
-
   const [height, setHeight] = useState({});
   const [intialVal, setInitVal] = useState({});
   const [images, setImages] = useState([]);
 
-
   const [userInfo, setuserInfo] = useState({
-    title: '',
-    author: '',
-    description: '',
-    information: '',
+    title: "",
+    author: "",
+    description: "",
+    information: "",
   });
 
   const sendData = () => {
     console.log(userInfo.description);
-
-  }
+  };
 
   const onChangeValue = (e) => {
-    if (e.target.value[1] === 'i') {
+    if (e.target.value[1] === "i") {
       console.log(e.target.value);
     }
     setuserInfo({
       ...userInfo,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
-  }
+  };
+
+  const extractImageLayer = (htmlString) => {
+    console.log(htmlString);
+    const $ = cheerio.load(htmlString);
+    let imageList = [];
+    let i = 0;
+    $("img").each(function () {
+      imageList = [...imageList, $(this).attr("src")];
+      let newId = `image_${i}`; // set an id for identification
+      $(this).attr("id", newId);
+      let newSrc = `image_${i}_upload_link`; //change it with uploaded link
+      $(this).attr("src", newSrc);
+
+      i++;
+    });
+    console.log(i);
+    console.log($.html());
+  };
   const ondescription = (value) => {
-    // console.log(value);
+    extractImageLayer(value);
     let totalHeight = document.getElementsByClassName("quill")[0].clientHeight;
     if (height > 800) {
       window.alert("You have reached the max word-limit");
@@ -44,33 +60,32 @@ function App() {
 
     // console.log(height)
 
-    if (totalHeight)
-      setInitVal(userInfo.description);
+    if (totalHeight) setInitVal(userInfo.description);
     setuserInfo({
       ...userInfo,
-      description: value
+      description: value,
     });
-
-  }
+  };
 
   const oninformation = (value) => {
     setuserInfo({
       ...userInfo,
-      information: value
+      information: value,
     });
-  }
+  };
   const [isError, setError] = useState(null);
   const addDetails = async (event) => {
     try {
       event.preventDefault();
       event.persist();
       if (userInfo.description.length < 50) {
-        setError('Required, Add description minimum length 50 characters');
+        setError("Required, Add description minimum length 50 characters");
         return;
       }
-
-    } catch (error) { throw error; }
-  }
+    } catch (error) {
+      throw error;
+    }
+  };
 
   return (
     <>
@@ -80,26 +95,45 @@ function App() {
           <div className="row">
             <form onSubmit={addDetails} className="update__forms">
               <div className="form-row">
-
                 <div className="editor form-group col-md-12 ">
-                  <label className="font-weight-bold"><strong>Page Content </strong> <span className="required"> * </span> </label>
-                  <EditorToolbar toolbarId={'t1'} />
+                  <label className="font-weight-bold">
+                    <strong>Page Content </strong>{" "}
+                    <span className="required"> * </span>{" "}
+                  </label>
+                  <EditorToolbar toolbarId={"t1"} />
                   <ReactQuill
                     theme="snow"
                     value={userInfo.description}
                     onChange={ondescription}
                     placeholder={"Write something awesome..."}
-                    modules={modules('t1')}
+                    modules={modules("t1")}
                     formats={formats}
-                    style={{ width: 390, textAlign: "center", justifyContent: 30, }}
+                    style={{
+                      width: 390,
+                      textAlign: "center",
+                      justifyContent: 30,
+                    }}
                   />
                 </div>
                 <br />
                 {isError !== null && <div className="errors"> {isError} </div>}
                 <div className="form-group col-sm-12 text-right">
-                  <button type="submit" className="btn btn__theme" onClick={sendData}> Save  </button>
-                  <button type="submit" className="btn btn__theme"> Save next  </button>
-                  <button type="submit" className="btn btn__theme"> Submit  </button>
+                  <button
+                    type="submit"
+                    className="btn btn__theme"
+                    onClick={sendData}
+                  >
+                    {" "}
+                    Save{" "}
+                  </button>
+                  <button type="submit" className="btn btn__theme">
+                    {" "}
+                    Save next{" "}
+                  </button>
+                  <button type="submit" className="btn btn__theme">
+                    {" "}
+                    Submit{" "}
+                  </button>
                 </div>
               </div>
             </form>
@@ -107,7 +141,7 @@ function App() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default App;
