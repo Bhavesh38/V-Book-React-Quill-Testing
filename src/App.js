@@ -9,7 +9,8 @@ import cheerio from "cheerio";
 function App() {
   const [height, setHeight] = useState({});
   const [intialVal, setInitVal] = useState({});
-  const [images, setImages] = useState([]);
+  const [audios,setAudios] = useState([]);
+  const [htmlValue,setHtmlValue] = useState("");
 
   const [userInfo, setuserInfo] = useState({
     title: "",
@@ -31,13 +32,25 @@ function App() {
       [e.target.name]: e.target.value,
     });
   };
+  const forceAudioRequest = ()=>{
+    const $ = cheerio.load(htmlValue);
+    let numberOfHeadings = $("h3").length;
+    if(audios.length<numberOfHeadings){
+      // show message that more audio/video is required as per heading count.
+      alert(`${numberOfHeadings-audios.length} more audios required.`);
 
-  const extractImageLayer = (htmlString) => {
-    console.log(htmlString);
-    const $ = cheerio.load(htmlString);
+    }
+
+  }
+  const extractImageLayer = (value) => {
+    console.log(value);
+    const $ = cheerio.load(value);
     let imageList = [];
     let i = 0;
     $("img").each(function () {
+      // upload to storage and grab the link
+
+
       imageList = [...imageList, $(this).attr("src")];
       let newId = `image_${i}`; // set an id for identification
       $(this).attr("id", newId);
@@ -50,6 +63,7 @@ function App() {
     console.log($.html());
   };
   const ondescription = (value) => {
+    setHtmlValue(value);
     extractImageLayer(value);
     let totalHeight = document.getElementsByClassName("quill")[0].clientHeight;
     if (height > 800) {
@@ -75,6 +89,7 @@ function App() {
   };
   const [isError, setError] = useState(null);
   const addDetails = async (event) => {
+    forceAudioRequest()
     try {
       event.preventDefault();
       event.persist();
@@ -86,6 +101,7 @@ function App() {
       throw error;
     }
   };
+
 
   return (
     <>
